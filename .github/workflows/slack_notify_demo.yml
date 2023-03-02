@@ -1,6 +1,6 @@
 name: Slack Demo
 on:
-  pull_request:
+  push:
 jobs:
   GitHub-Actions-job-1:
     runs-on: ubuntu-latest
