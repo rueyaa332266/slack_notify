@@ -1,0 +1,7 @@
+rotate_1:
+  - aaa
+  - bbb
+  - ccc
+  - ddd
+
+next: aaa
