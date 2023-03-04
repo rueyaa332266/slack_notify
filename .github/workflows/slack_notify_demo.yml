@@ -1,7 +1,7 @@
 name: Slack Demo
 on:
     schedule:
-    - cron:  '1 * * * *'
+    - cron:  '5 * * * *'
 jobs:
   GitHub-Actions-job-1:
     runs-on: ubuntu-latest
