@@ -24,7 +24,7 @@ jobs:
         id: get_next
         uses: mikefarah/yq@master
         with:
-          cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_next.outputs.result }}"]' .github/rotate/demo.yml
+          cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
       # - uses: actions/checkout@v3
       # - run: |
       #     date > generated.txt
