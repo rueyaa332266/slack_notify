@@ -26,7 +26,6 @@ jobs:
         with:
           cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
       - name: update demo
-        id: get_next
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.this = "${{ steps.get_next.outputs.result }}"' .github/rotate/demo.yml
