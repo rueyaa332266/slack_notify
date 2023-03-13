@@ -25,6 +25,8 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
+      - name: Reuse a variable obtained in another step
+        run: echo ${{ steps.get_next.outputs.result }}
       # - uses: actions/checkout@v3
       # - run: |
       #     date > generated.txt
