@@ -16,7 +16,7 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq '.this' .github/rotate/demo.yml
-      - name: Get this assign index
+      - name: Get next assign index
         id: get_index_for_next
         uses: mikefarah/yq@master
         with:
@@ -25,7 +25,7 @@ jobs:
         id: get_next
         uses: mikefarah/yq@master
         with:
-          cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
+          cmd: yq '[.list[], .list[0]] ["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
       - name: update demo
         uses: mikefarah/yq@master
         with:
