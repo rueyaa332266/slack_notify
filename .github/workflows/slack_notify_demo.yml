@@ -29,6 +29,10 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.this = "${{ steps.get_next.outputs.result }}"' .github/rotate/demo.yml
+      - name: update demo
+        run: |
+          cat .github/rotate/demo.yml
+          git status
       - uses: actions/checkout@v3
       - run: |
           git config user.name github-actions
