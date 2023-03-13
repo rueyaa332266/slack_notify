@@ -1,7 +1,7 @@
 name: Slack Demo
 on:
-    schedule:
-    - cron:  '28 * * * *'
+  schedule:
+    - cron:  '0 20 * * *'
 jobs:
   GitHub-Actions-job-1:
     runs-on: ubuntu-latest
@@ -9,15 +9,35 @@ jobs:
       SLACK_MESSAGE: 'From github action'
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      # - name: Slack notify
-      #   run: bash .github/scripts/slack_notify.sh
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get this assign
+        id: get_this
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.this' .github/rotate/demo.yml
+      - name: Get this assign index
+        id: get_index_for_next
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.list.[] | select(. == "${{ steps.get_this.outputs.result }}") | path | .[-1] as $i | $i+1' .github/rotate/demo.yml
+      - name: Get next assign
+        id: get_next
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '[.list[], .list[0]] as $l | $l["${{ steps.get_index_for_next.outputs.result }}"]' .github/rotate/demo.yml
+      - name: update demo
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.this = "${{ steps.get_next.outputs.result }}"' .github/rotate/demo.yml
+      - name: update demo
+        run: |
+          cat .github/rotate/demo.yml
+          git status
       - uses: actions/checkout@v3
       - run: |
-          date > generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "generated"
+          git commit -m "updated"
           git push
