@@ -1,0 +1,23 @@
+name: Slack Demo
+on:
+  pull_request:
+    branches: [master]
+jobs:
+  GitHub-Actions-job-1:
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: update demo
+        run: |
+          curl -X POST -d \
+          "payload={
+            'username': 'Hands-on Demo',
+            'channel': 'D049PEKKHFC',
+            'text': '1st
+            2nd
+            3rd'
+          }" \
+          $SLACK_WEBHOOK
