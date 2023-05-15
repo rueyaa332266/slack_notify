@@ -16,8 +16,7 @@ jobs:
           "payload={
             'username': 'Hands-on Demo',
             'channel': 'D049PEKKHFC',
-            'text': '1st
-            2nd
+            'text': '1st\n2nd
             3rd'
           }" \
           $SLACK_WEBHOOK
