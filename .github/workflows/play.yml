@@ -14,8 +14,8 @@ jobs:
           "payload={
             'username': 'Hands-on Demo',
             'channel': 'D049PEKKHFC',
-            'text': '1st 123\
-            \n2nd 456\
-            \n3rd'
+            'text': '1st 123\n \
+            2nd 456\n \
+            3rd'
           }" \
           $SLACK_WEBHOOK
